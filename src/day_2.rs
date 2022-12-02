@@ -28,43 +28,43 @@ pub fn rps_score(filepath: &str) -> i32 {
     total
 }
 
-fn calculate_game_score(opponent_move: char, player_move: char) -> i32 {
+fn calculate_game_score(opponent_move: char, outcome: char) -> i32 {
     let mut total: i32 = 0;
-    match player_move {
-        'X' => total = total + 1,
-        'Y' => total = total + 2,
-        'Z' => total = total + 3,
+    match outcome {
+        'X' => total = total + 0,
+        'Y' => total = total + 3,
+        'Z' => total = total + 6,
         _ => panic!("invalid input")
     }
 
-    total = total + calculate_outcome_score(opponent_move, player_move);
+    total = total + calculate_shape_score(opponent_move, outcome);
     return total
 }
 
-fn calculate_outcome_score(opponent_move: char, player_move: char) -> i32 {
-    let outcome_score;
-    match player_move {
-        'X' => {
-            match opponent_move {
-                'A' => outcome_score = 3,
-                'B' => outcome_score = 0,
-                'C' => outcome_score = 6,
+fn calculate_shape_score(opponent_move: char, outcome: char) -> i32 {
+    let shape_score;
+    match opponent_move {
+        'A' => {
+            match outcome {
+                'X' => shape_score = 3,
+                'Y' => shape_score = 1,
+                'Z' => shape_score = 2,
                 _ => panic!("invalid input")
             }
         }
-        'Y' => {
-            match opponent_move {
-                'A' => outcome_score = 6,
-                'B' => outcome_score = 3,
-                'C' => outcome_score = 0,
+        'B' => {
+            match outcome {
+                'X' => shape_score = 1,
+                'Y' => shape_score = 2,
+                'Z' => shape_score = 3,
                 _ => panic!("invalid input")
             }
         }
-        'Z' => {
-            match opponent_move {
-            'A' => outcome_score = 0,
-            'B' => outcome_score = 6,
-            'C' => outcome_score = 3,
+        'C' => {
+            match outcome {
+            'X' => shape_score = 2,
+            'Y' => shape_score = 3,
+            'Z' => shape_score = 1,
             _ => panic!("invalid input")
             }
         }
@@ -72,5 +72,5 @@ fn calculate_outcome_score(opponent_move: char, player_move: char) -> i32 {
         _ => panic!("invalid input")
 
     }
-    outcome_score
+    shape_score
 }
