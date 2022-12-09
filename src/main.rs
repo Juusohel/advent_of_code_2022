@@ -1,5 +1,6 @@
 mod day_1;
 mod day_2;
+mod day_3;
 
 fn main() {
     // Day 1
@@ -14,5 +15,10 @@ fn main() {
         "DAY 2: Total score: {}",
         day_2::rps_score("day2_input.txt")
     );
+
+    println!(
+        "DAY 3: Total priority: {}",
+        day_3::sum_priorities("day3_input.txt")
+    )
 
 }
