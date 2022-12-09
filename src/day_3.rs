@@ -25,41 +25,75 @@ pub fn sum_priorities(filepath: &str) -> i32 {
 
     // Reading file contents
     let lines = io::BufReader::new(file).lines();
+    let mut sets_of_three: Vec<Vec<String>> = Vec::new();
+    let mut count = 0;
+    let mut holding_vec: Vec<String> = Vec::new();
+    for line in lines {
+        holding_vec.push(line.unwrap());
+
+
+        if count >= 2 {
+            count = 0;
+            sets_of_three.push(holding_vec.clone());
+            holding_vec.clear();
+            continue
+        } else {
+            count = count +1;
+        }
+
+    }
     let mut comp_1: Vec<char> = Vec::new();
     let mut comp_2: Vec<char> = Vec::new();
-    for line in lines {
-        let bags = line.unwrap();
+    let mut comp_3: Vec<char> = Vec::new();
 
-        // Pushing into 2 half arrays
-        let half_size = bags.len()/2;
-        for (i, character) in bags.chars().enumerate() {
-            if i+1 <= half_size {
-                comp_1.push(character);
-                // println!("adding to 1 {}", character);
-            } else {
-                // println!("adding to 2 {}", character);
-                comp_2.push(character);
+    for set in sets_of_three {
+        for (i, line) in set.into_iter().enumerate() {
+            match i {
+                0 => {
+                   for char in line.chars() {
+                       comp_1.push(char)
+                   }
+               }
+                1 => {
+                    for char in line.chars() {
+                        comp_2.push(char)
+                    }
+                }
+                2 => {
+                    for char in line.chars() {
+                        comp_3.push(char)
+                    }
+                }
+                _ => panic!("broke")
             }
         }
 
-        // Adding first half to map
+        let mut duplicates_vec: Vec<char> = Vec::new();
+        // adding number 1 to map
         let mut comp_1_char_map: HashSet<char> = HashSet::new();
         for character in comp_1.clone() {
             comp_1_char_map.insert(character);
         }
-        // Checking if there's duplicates in second half add adding to priority total
+
+        // checking duplicates from number 2 and adding to duplicates
         for character in comp_2.clone() {
             if comp_1_char_map.contains(&character) {
+                duplicates_vec.push(character)
+            }
+        }
 
-                let added_priority = priorities.get(&character).unwrap();
-                comp_1_char_map.remove(&character);
-                total_priority = total_priority + added_priority;
-                // println!("Duplicate found: {}, adding value {}", character, added_priority);
+        for character in comp_3.clone() {
+            if duplicates_vec.contains(&character){
+                let added_prio = priorities.get(&character).unwrap();
+                total_priority = total_priority + added_prio;
+                break
             }
         }
         comp_1.clear();
         comp_2.clear();
-
+        comp_3.clear();
     }
+
+
     total_priority
 }
