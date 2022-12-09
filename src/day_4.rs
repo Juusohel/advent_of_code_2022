@@ -34,23 +34,29 @@ pub fn count_overlap_pairs(filepath: &str) -> i32 {
         let pair1: Vec<&str> = pair1.split('-').collect();
 
 
+        // var names are reversed oops
         let pair1high :i32 = pair1[0].parse().unwrap();
         let pair1low :i32 = pair1[1].parse().unwrap();
+
+        // fill up array with first section
+        let mut first_sections: Vec<i32> = vec!();
+        for i in pair1high..=pair1low {
+            first_sections.push(i);
+        }
 
         let pair2: Vec<&str> = pair2.split('-').collect();
 
         let pair2high :i32 = pair2[0].parse().unwrap();
         let pair2low :i32 = pair2[1].parse().unwrap();
 
-        // if second set is in first set
-        if pair1low <= pair2low && pair1high >= pair2high {
-            total_overlap_pairs = total_overlap_pairs + 1;
-            continue
+        // if any overlap
+        for i in pair2high..=pair2low {
+            if first_sections.contains(&i) {
+                total_overlap_pairs = total_overlap_pairs + 1;
+                break
+            }
         }
-        if pair2low <= pair1low && pair2high >= pair1high {
-            total_overlap_pairs = total_overlap_pairs + 1;
-            continue
-        }
+
 
     }
 
