@@ -1,6 +1,7 @@
 mod day_1;
 mod day_2;
 mod day_3;
+mod day_4;
 
 fn main() {
     // Day 1
@@ -19,6 +20,11 @@ fn main() {
     println!(
         "DAY 3: Total priority: {}",
         day_3::sum_priorities("day3_input.txt")
+    );
+
+    println!(
+        "DAY 4: Total overlap pairs: {}",
+        day_4::count_overlap_pairs("day4_input.txt")
     )
 
 }
