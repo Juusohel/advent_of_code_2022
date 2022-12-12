@@ -2,7 +2,6 @@ use std::fs::File;
 use std::io;
 use std::io::BufRead;
 
-
 pub fn rps_score(filepath: &str) -> i32 {
     // Open file
     let file = match File::open(filepath) {
@@ -34,43 +33,36 @@ fn calculate_game_score(opponent_move: char, outcome: char) -> i32 {
         'X' => total = total + 0,
         'Y' => total = total + 3,
         'Z' => total = total + 6,
-        _ => panic!("invalid input")
+        _ => panic!("invalid input"),
     }
 
     total = total + calculate_shape_score(opponent_move, outcome);
-    return total
+    return total;
 }
 
 fn calculate_shape_score(opponent_move: char, outcome: char) -> i32 {
     let shape_score;
     match opponent_move {
-        'A' => {
-            match outcome {
-                'X' => shape_score = 3,
-                'Y' => shape_score = 1,
-                'Z' => shape_score = 2,
-                _ => panic!("invalid input")
-            }
-        }
-        'B' => {
-            match outcome {
-                'X' => shape_score = 1,
-                'Y' => shape_score = 2,
-                'Z' => shape_score = 3,
-                _ => panic!("invalid input")
-            }
-        }
-        'C' => {
-            match outcome {
+        'A' => match outcome {
+            'X' => shape_score = 3,
+            'Y' => shape_score = 1,
+            'Z' => shape_score = 2,
+            _ => panic!("invalid input"),
+        },
+        'B' => match outcome {
+            'X' => shape_score = 1,
+            'Y' => shape_score = 2,
+            'Z' => shape_score = 3,
+            _ => panic!("invalid input"),
+        },
+        'C' => match outcome {
             'X' => shape_score = 2,
             'Y' => shape_score = 3,
             'Z' => shape_score = 1,
-            _ => panic!("invalid input")
-            }
-        }
+            _ => panic!("invalid input"),
+        },
 
-        _ => panic!("invalid input")
-
+        _ => panic!("invalid input"),
     }
     shape_score
 }

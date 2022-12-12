@@ -3,17 +3,14 @@ use std::fs::File;
 use std::io;
 use std::io::BufRead;
 
-
 pub fn sum_priorities(filepath: &str) -> i32 {
     // creating priorities map
     let alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    let mut priorities: HashMap<char, i32>= HashMap::new();
+    let mut priorities: HashMap<char, i32> = HashMap::new();
 
     for (i, character) in alpha.chars().enumerate() {
         priorities.insert(character, i as i32 + 1);
     }
-
-
 
     // Open file
     let file = match File::open(filepath) {
@@ -31,16 +28,14 @@ pub fn sum_priorities(filepath: &str) -> i32 {
     for line in lines {
         holding_vec.push(line.unwrap());
 
-
         if count >= 2 {
             count = 0;
             sets_of_three.push(holding_vec.clone());
             holding_vec.clear();
-            continue
+            continue;
         } else {
-            count = count +1;
+            count = count + 1;
         }
-
     }
     let mut comp_1: Vec<char> = Vec::new();
     let mut comp_2: Vec<char> = Vec::new();
@@ -50,10 +45,10 @@ pub fn sum_priorities(filepath: &str) -> i32 {
         for (i, line) in set.into_iter().enumerate() {
             match i {
                 0 => {
-                   for char in line.chars() {
-                       comp_1.push(char)
-                   }
-               }
+                    for char in line.chars() {
+                        comp_1.push(char)
+                    }
+                }
                 1 => {
                     for char in line.chars() {
                         comp_2.push(char)
@@ -64,7 +59,7 @@ pub fn sum_priorities(filepath: &str) -> i32 {
                         comp_3.push(char)
                     }
                 }
-                _ => panic!("broke")
+                _ => panic!("broke"),
             }
         }
 
@@ -83,17 +78,16 @@ pub fn sum_priorities(filepath: &str) -> i32 {
         }
 
         for character in comp_3.clone() {
-            if duplicates_vec.contains(&character){
+            if duplicates_vec.contains(&character) {
                 let added_prio = priorities.get(&character).unwrap();
                 total_priority = total_priority + added_prio;
-                break
+                break;
             }
         }
         comp_1.clear();
         comp_2.clear();
         comp_3.clear();
     }
-
 
     total_priority
 }
