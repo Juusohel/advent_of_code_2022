@@ -42,7 +42,6 @@ pub fn rearrange_crates(filepath: &str) -> Vec<&str> {
         // grab the crates from stack
         for _ in 0..amount_int {
             holding_vec.push(crates[from - 1].pop().unwrap());
-
         }
         // put them into the the new one in the correct order, clears holding vec
         // println!("Moving amount: {} {:?} from {} to {}", amount, holding_vec, from-1, target-1);
@@ -53,7 +52,7 @@ pub fn rearrange_crates(filepath: &str) -> Vec<&str> {
     // print "top" of the stack. Because our vecs are reversed, it's the first entry, not last
     let mut tops_of_stacks: Vec<&str> = Vec::new();
     for stack in crates {
-        tops_of_stacks.push(stack[stack.len()-1])
+        tops_of_stacks.push(stack[stack.len() - 1])
     }
 
     return tops_of_stacks;

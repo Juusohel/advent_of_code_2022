@@ -3,6 +3,7 @@ mod day_2;
 mod day_3;
 mod day_4;
 mod day_5;
+mod day_6;
 
 fn main() {
     // Day 1
@@ -28,5 +29,10 @@ fn main() {
     println!(
         "DAY 5: Tops of stacks are: {:?}",
         day_5::rearrange_crates("day5_input.txt")
+    );
+
+    println!(
+        "Day 6: Processed {} chars to find unique 4",
+        day_6::processed_characters_count("day6_input.txt")
     )
 }
