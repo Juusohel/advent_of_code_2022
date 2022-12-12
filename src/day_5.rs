@@ -46,6 +46,7 @@ pub fn rearrange_crates(filepath: &str) -> Vec<&str> {
         }
         // put them into the the new one in the correct order, clears holding vec
         // println!("Moving amount: {} {:?} from {} to {}", amount, holding_vec, from-1, target-1);
+        holding_vec.reverse();
         crates[target - 1].append(&mut holding_vec)
     }
 
